@@ -19,6 +19,6 @@ from django.urls import path, include
 from decouple import config as env_config
 
 urlpatterns = [
-    path(env_config('ADMIN_PATH'), admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', include('ocr.urls')),
 ]

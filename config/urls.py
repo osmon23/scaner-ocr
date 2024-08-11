@@ -17,8 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from decouple import config as env_config
+from django.conf import settings
+from django.conf.urls.static import static
+
+admin_path = env_config('ADMIN_PATH')
+
+if admin_path is None:
+    admin_path = 'admin'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(f'{admin_path}/', admin.site.urls),
     path('', include('ocr.urls')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

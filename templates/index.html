@@ -14,5 +14,14 @@
         <button>Submit</button>
     </div>
 </form>
+<form method="post" , enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <button class="btn btn-primary btn-sm" type="submit">Upload</button>
+    {% for document in object_list %}
+        <a href="{{ document.csv_file.url }}" download class="btn btn-dark float-right">Download</a>
+    {% endfor %}
+</form>
 </body>
 </html>

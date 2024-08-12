@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import UploadFileForm
 from PIL import Image
+from django.conf import settings
 
 
 def text_recognition(file):
-    pytesseract.pytesseract.tesseract_cmd = r'C:/Users/o.rysbek/AppData/Local/Programs/Tesseract-OCR/tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = settings.TESSERACT
 
     img = Image.open(file)
     custom_config = r'--oem 3 --psm 6'

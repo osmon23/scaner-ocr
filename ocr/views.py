@@ -1,14 +1,16 @@
-import easyocr
+import pytesseract
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import UploadFileForm
+from PIL import Image
 
 
 def text_recognition(file):
-    reader = easyocr.Reader(['ru', 'en'])
-    result = reader.readtext(file)
+    img = Image.open(file)
+    custom_config = r'--oem 3 --psm 6'
+    text = pytesseract.image_to_string(img, lang='rus', config=custom_config)
 
-    return result
+    return text
 
 
 def upload_file(request):
